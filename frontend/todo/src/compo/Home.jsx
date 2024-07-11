@@ -8,6 +8,7 @@ const Home = () => {
   const [flag, setFlag] = useState(0);
   const [note, setNote] = useState([]);
   const [temp,setTemp]=useState(null);
+  
   useEffect(() => {
     const getData = async () => {
       await axios
