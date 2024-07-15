@@ -37,9 +37,10 @@ const sessionStore = new (SequelizeStore(session.Store))({
         saveUninitialized: false,
         store:sessionStore,
         cookie:{
-            name:'user',
+           
             maxAge:86400000,
-        }
+        },
+        name:"cook"
     }));
      // Handle errors during initialization
      try {
@@ -57,13 +58,27 @@ const sessionStore = new (SequelizeStore(session.Store))({
     app.use('/',router);
     app.use('/user',userRouter);
     app.get('/him', (req, res) => {
+        req.user=null;
         if (req.session && req.session.user) {
-            res.send(req.session.user);
+            req.user=req.session.user
+            console.log(req.user);
+            console.log("valid")
+            res.json({user:req.user});
         } else {
-            res.status(401).send('User not logged in');
+           // console.log("Invalid")
+            res.json({user:req.user});
         }
     });
-    
+    app.delete('/hatawnu',async (req,res)=>{
+       req.session.destroy((err)=>{
+        if(err){
+            console.log("error",err);
+        }
+        res.clearCookie('cook'); // clear the session cookie
+        console.log("cookie deleted")
+        res.send('Session destroyed');
+       })
+    }) 
     
     app.listen(port,()=>{
 

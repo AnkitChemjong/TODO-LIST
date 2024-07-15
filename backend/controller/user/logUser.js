@@ -6,7 +6,9 @@ const logUser=async (req,res)=>{
 
         const {email,password}=req.body;
         const user=await User.getUser(email,password);
+        console.log(user);
         req.session.user=user;
+        console.log(req.session);
         res.send(user);
     }
     catch(err){

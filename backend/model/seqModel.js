@@ -34,6 +34,12 @@ User.beforeSave(async function (user,option){
 
 User.getUser=async function (email,password){
     const user=await this.findOne({where:{email:email}});
+    // if(user?.email===email){
+    //   console.log("same")
+    // }
+    // else{
+    //   console.log(  "dis")
+    // }
     if(!user) throw new Error("User not found");
     const check=await bcrypt.compare(user.password,password);
     if(!check) new Error("pass incorrect");

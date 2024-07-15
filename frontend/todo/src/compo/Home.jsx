@@ -101,7 +101,7 @@ const Home = () => {
       <div 
         className="max-w-lg rounded-3xl overflow-hidden shadow-lg ml-10 mb-10 p-5
         bg-red-300 border-2 border-sky-500 "
-        key={maps.id}
+        key={maps.Noteid}
         style={{ flex: '0 0 calc(50% - 20px)' }}
       >
         <div className="px-6 py-4 flex-wrap">

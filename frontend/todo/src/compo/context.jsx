@@ -8,8 +8,9 @@ export const ContextApp = ({children}) => {
     const [flag,setFlag]=useState(0);
     useEffect(()=>{
         const getLogedUser=async ()=>{
-           await axios.get('http://localhost:8080/logedUser').then((response)=>{
+           await axios.get('http://localhost:8080/him').then((response)=>{
                 setUser(response.data.user);
+                console.log(response);
             }).catch((error)=>{console.log(error)});
         }
         getLogedUser();

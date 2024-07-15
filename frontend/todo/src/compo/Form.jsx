@@ -1,17 +1,39 @@
 import React, { useState, useContext } from "react";
 
 const Form = (props) => {
+  const [file,setFile]=useState();
   const [data, setData] = useState({
     title: "",
     content: "",
+    userName:'',
+    email:'',
+    password:''
   });
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setFile(files[0]);
+    } else {
+      setData((prev) => ({ ...prev, [name]: value }));
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.fun(e, data);
+    if(props.type==='signin'){
+      const formData = new FormData();
+      if (file) {
+        formData.append('image', file);
+      }
+      formData.append('userName', data.userName);
+      formData.append('email', data.email);
+      formData.append('password', data.password);
+      formData.append('title', data.title);
+      formData.append('content', data.content);
+      props.fun(e, formData);
+    }
+    else{
+      props.fun(e,data);
+    }
   };
   return (
     <div>
@@ -47,6 +69,7 @@ const Form = (props) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Title"
                 required
+                autoComplete="off"
               />
             </div>
             <div className="mb-5">
@@ -63,11 +86,13 @@ const Form = (props) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Content"
                 required
+                autoComplete="off"
               />
             </div>
           </>
         )}
         {props.type === "signin" && (
+          <>
           <div className="mb-5">
             <label
               htmlFor="userName"
@@ -83,8 +108,27 @@ const Form = (props) => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="userName"
               required
+              autoComplete="username"
             />
           </div>
+           <div className="mb-5">
+           <label
+             htmlFor="image"
+             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+           >
+             image
+           </label>
+           <input
+             type="file"
+             id="image"
+             name='image'
+             onChange={handleChange}
+             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+             placeholder="file"
+             required autoComplete="off"
+           />
+         </div>
+         </>
         )}
         {(props.type === "signin" || props.type === "login") && 
         (
@@ -104,6 +148,7 @@ const Form = (props) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="email"
                   required
+                  autoComplete="email"
                 />
               </div>
               <div className="mb-5">
@@ -121,6 +166,7 @@ const Form = (props) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="password"
                   required
+                  autoComplete='current-password'
                 />
               </div>
             </>

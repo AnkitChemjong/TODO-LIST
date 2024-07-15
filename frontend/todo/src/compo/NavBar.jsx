@@ -1,13 +1,24 @@
 import React, { useState,useContext } from "react";
-import { Link } from "react-router-dom";
-import AppContext from './context.jsx'
+import { Link,useNavigate} from "react-router-dom";
+import AppContext from './context.jsx';
+import axios from "axios";
 
 const NavBar = () => {
-    const {user,setUser}=useContext(AppContext);
+  const navigate=useNavigate();
+    const {flag,setFlag,user,setUser}=useContext(AppContext);
   const [toggl, setToggl] = useState(false);
   const tog = () => {
     setToggl(!toggl);
   };
+  const deleteSession=async ()=>{
+    await axios.delete('http://localhost:8080/hatawnu').then(()=>{
+      setFlag(flag+1);
+      navigate('/');
+      window.alert("cookie is deleted");
+      //window.location.reload();
+
+    }).catch((err)=>{console.log("Error deleting cookie")});
+  }
   return (
     <nav className="bg-gray-800 h-20">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -25,7 +36,7 @@ const NavBar = () => {
                   DashBoard
                 </button>
                 <Link to="/">
-                  {" "}
+                
                   <button className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">
                     Home
                   </button>
@@ -97,6 +108,7 @@ const NavBar = () => {
                   </button>
                 </Link>
                 <button
+                onClick={deleteSession}
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
