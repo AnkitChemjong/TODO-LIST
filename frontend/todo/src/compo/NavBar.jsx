@@ -5,7 +5,7 @@ import axios from "axios";
 
 const NavBar = () => {
   const navigate=useNavigate();
-    const {flag,setFlag,user,setUser}=useContext(AppContext);
+    const {flag,setFlag,user}=useContext(AppContext);
   const [toggl, setToggl] = useState(false);
   const tog = () => {
     setToggl(!toggl);
@@ -18,6 +18,9 @@ const NavBar = () => {
       //window.location.reload();
 
     }).catch((err)=>{console.log("Error deleting cookie")});
+  }
+  const profile= ()=>{
+      navigate('/profile');
   }
   return (
     <nav className="bg-gray-800 h-20">
@@ -82,7 +85,7 @@ const NavBar = () => {
               >
                 <img
                   className="h-8 w-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src={user.userImage}
                   alt=""
                 />
               </button>
@@ -96,8 +99,8 @@ const NavBar = () => {
                 aria-labelledby="user-menu-button"
                 tabindex="-1"
               >
-                <Link to="">
                   <button
+                  onClick={profile}
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
@@ -106,7 +109,6 @@ const NavBar = () => {
                   >
                     Your Profile
                   </button>
-                </Link>
                 <button
                 onClick={deleteSession}
                   href="#"

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Form from "./Form.jsx";
 import axios from "axios";
+import AppContext from './context.jsx';
 
 const Home = () => {
+  const {user,flag,setFlag}=useContext(AppContext);
   const [toggle, setToggle] = useState(false);
   const [togg, setTogg] = useState(false);
-  const [flag, setFlag] = useState(0);
   const [note, setNote] = useState([]);
   const [temp,setTemp]=useState(null);
   
@@ -69,6 +70,15 @@ const Home = () => {
           });}
   return (
     <div className='bg-fuchsia-300 items-center justify-center max-h-full mt-0'>
+      {user===null? (
+          <div className="flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold mb-4 underline">TODO APP</h1>
+             <h1>User is not logged out</h1>
+          </div>
+        </div>
+      ):
+      (
       <div className="flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4 underline">TODO APP</h1>
@@ -80,6 +90,8 @@ const Home = () => {
           </button>
         </div>
       </div>
+      )
+      }
 
       {toggle && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">

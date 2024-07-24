@@ -21,6 +21,11 @@ salt:{
   type:DataTypes.STRING,
   allowNull: true
      }
+     ,
+     userImage:{
+      type:DataTypes.STRING,
+      allowNull:false
+     }
 });
 
 User.beforeSave(async function (user,option){

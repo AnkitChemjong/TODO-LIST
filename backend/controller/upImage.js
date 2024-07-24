@@ -12,6 +12,17 @@ const storage=multer.diskStorage({
         return cb(null,name);
      }
 });
+const fileFilterer=(req,file,cb)=>{
+   //console.log(file.mimetype)
+   const allowedTypes=['image/jpeg', 'image/png', 'image/gif'];
+   if(allowedTypes.includes(file.mimetype)){
+      return cb(null,true);
 
-const upload=multer({storage:storage});
+   }
+   else{
+      return cb(new Error("file not allowed"),false);
+   }
+}
+
+const upload=multer({storage:storage,fileFilter:fileFilterer});
 export default upload;

@@ -15,11 +15,11 @@ const createUser=async (req,res)=>{
     try{
 
         const {userName,email,password}=req.body;
-        console.log(userName,email,password);
-        const user=await User.create({userName,email,password});
         //console.log(req.file);
         const x=await cloudinary.uploader.upload(req.file.path);
         //console.log(x);
+       // console.log(userName,email,password);
+        const user=await User.create({userName,email,password,userImage:x.url});
         fs.unlink((req.file.path),(err)=>{
             if(err){
                 console.log(err);
