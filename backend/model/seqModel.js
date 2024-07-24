@@ -25,6 +25,18 @@ salt:{
      userImage:{
       type:DataTypes.STRING,
       allowNull:false
+     },
+     resetSalt:{
+      type:DataTypes.STRING,
+      allowNull: true
+     },
+     resetToken:{
+      type:DataTypes.STRING,
+      allowNull:true
+     },
+     tokenExpirationDate:{
+      type:DataTypes.STRING,
+      allowNull:true
      }
 });
 

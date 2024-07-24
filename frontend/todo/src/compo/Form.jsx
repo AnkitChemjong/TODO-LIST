@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 const Form = (props) => {
   const [file,setFile]=useState();
@@ -170,6 +171,11 @@ const Form = (props) => {
                 />
               </div>
             </>
+          )}
+          {props.type==='login' && (
+            <div className="mt-10">
+              <Link to='/email'>Forget Password</Link>
+            </div>
           )}
 
         <div className="flex justify-center">
