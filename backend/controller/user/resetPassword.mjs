@@ -1,4 +1,5 @@
 import User from "../../model/seqModel.js";
+import {createHmac} from 'crypto';
 
 const resetPassword=async (req,res)=>{
     const email=req.params.email;
@@ -9,9 +10,9 @@ const resetPassword=async (req,res)=>{
        const userSalt=user.salt;
        const newHashedPassword=createHmac('sha256',userSalt).update(password).digest('hex');
        user.password=newHashedPassword;
-       user.resetSalt=undefined;
-       user.resetToken=undefined;
-       user.tokenExpirationDate=undefined;
+       user.resetSalt=null;
+       user.resetToken=null;
+       user.tokenExpirationDate=null;
        user.save();
        res.json({message: 'Password changed'})
     }

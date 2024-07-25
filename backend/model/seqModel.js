@@ -35,7 +35,7 @@ salt:{
       allowNull:true
      },
      tokenExpirationDate:{
-      type:DataTypes.STRING,
+      type:DataTypes.DATE,
       allowNull:true
      }
 });

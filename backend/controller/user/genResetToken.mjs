@@ -18,12 +18,12 @@ const genResetToken = async (req,res)=>{
       try{
           console.log(user.dataValues);
           await mailTrap(email,token);
-          res.json({message:"Token sent to your email address"})
+          res.json({message:"get the token from email"});
       }
       catch(error){
-        user.resetSalt=undefined;
-        user.resetToken=undefined;
-        user.tokenExpirationDate=undefined;
+        user.resetSalt=null;
+        user.resetToken=null;
+        user.tokenExpirationDate=null;
         res.send(error);
       }
  }

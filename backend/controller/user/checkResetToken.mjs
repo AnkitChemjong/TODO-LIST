@@ -9,11 +9,12 @@ const checkResetToken =async (req,res) =>{
       const user=await User.findOne({where:{email:email}});
       const userSalt=user.resetSalt;
       const getToken=createHmac('sha256',userSalt).update(token).digest('hex');
-      if(getToken===user.resetToken){
-        res.json({message:"Token matched"});
+      const date=Date.now();
+      if(getToken===user.resetToken&& date<=user. tokenExpirationDate){
+        res.json({message:'Token matched',email:user.email});
       }
       else{
-        res.json({message:'Invalid token'});
+        res.json({message:'Invalid token or token expired'});
       }
       
    }

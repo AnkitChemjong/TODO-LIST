@@ -5,7 +5,7 @@ import {useNavigate,useLocation} from 'react-router-dom';
 const Token = () => {
     const location=useLocation();
     const {email}=location.state||{};
-    console.log(email);
+    //console.log(email);
     const navigate=useNavigate();
     const [token,setToken]=useState();
     const handleChange=(e) => {
@@ -14,13 +14,14 @@ const Token = () => {
     const tokens=async (e)=>{
         e.preventDefault();
           await axios.post(`http://localhost:8080/user/pass/token/${email}`,{token}).then((response)=>{
+            console.log(response.data)
              
           if(response.data.message==='Token matched'){
-
               console.log("Success");
-              navigate('/pass',{state:email});
+              navigate('/pass',{state:{email}});
           }
           else{
+            alert(response.data.message);
             navigate('/email');
           }
           }).catch(()=>{console.log("Failed");});

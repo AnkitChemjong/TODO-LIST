@@ -10,9 +10,9 @@ const Email = () => {
     };
     const pass=async (e)=>{
         e.preventDefault();
-          await axios.post('http://localhost:8080/user/pass/email',{email}).then((response)=>{   
-             console.log(response.data.message);
-             navigate('/token',{state:email});
+          await axios.post('http://localhost:8080/user/pass/email',{email}).then((response)=>{  
+             const emails=response.data.message
+             navigate('/token',{state:{email}});
           }).catch(()=>{console.log("Failed");});
     };
   return (

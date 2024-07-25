@@ -3,7 +3,8 @@ import axios from 'axios';
 import {useNavigate,useLocation} from 'react-router-dom';
 
 const PassUp = () => {
-
+    const navigate=useNavigate();
+    
     const location=useLocation();
     const {email}=location.state||{};
     const [password,setPassword]=useState();
